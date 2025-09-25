@@ -1,0 +1,5 @@
+archive/
+*.pth
+venv/
+dataset/
+sortedDataset/
