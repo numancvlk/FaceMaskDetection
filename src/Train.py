@@ -1,6 +1,6 @@
 #SCRIPTS
 from Helpers import accuracy,printTrainTime,trainStep,testStep,modelSummary
-from Model import MaskModel, device
+from PretrainedModel import getMaskModel,device
 from Dataset import trainDataLoader,testDataLoader
 
 #LIBRARIES
@@ -13,17 +13,22 @@ from tqdm.auto import tqdm
 
 random.seed(32)
 
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0001
 
-myMaskModel = MaskModel(inputShape=3,
-                        hiddenUnit=128,
-                        outputShape=3).to(device) #OUTPUT SHAPE CLASS SAYISI!!!
+myMaskModel = getMaskModel(numClasses=3,device=device)
+
+for param in myMaskModel.features.parameters():
+    param.requires_grad = False
+
+for block in myMaskModel.features[-2:]:
+    for param in block.parameters():
+        param.requires_grad = True
 
 lossFn = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(params=myMaskModel.parameters(),
+optimizer = torch.optim.Adam(params=myMaskModel.classifier.parameters(),
                             lr=LEARNING_RATE)
 
-epochs = 10
+epochs = 30
 
 startTrainTimer = default_timer()
 

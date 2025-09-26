@@ -3,7 +3,7 @@ import torch
 import cv2 as cv
 
 from torchvision import transforms
-from Model import MaskModel,device
+from PretrainedModel import getMaskModel,device
 
 from collections import deque
 
@@ -11,11 +11,8 @@ from SplitData import classes
 
 from facenet_pytorch import MTCNN #YÜZÜ ALGILAMAK İÇİN
 
-model = MaskModel(inputShape=3,
-                  hiddenUnit=64,
-                  outputShape=3).to(device)
 
-model.load_state_dict(torch.load("src/myMaskModel.pth",map_location=device))
+model = getMaskModel(numClasses=3,device=device)
 model.eval()
 
 capture = cv.VideoCapture(0)
@@ -24,10 +21,12 @@ transform = transforms.Compose([
     transforms.ToPILImage(),
     transforms.Resize((224,224)),  # Modelin eğitimde kullandığı boyuta resize et
     transforms.ToTensor(), # Görüntüyü PyTorch tensörüne dönüştür (C x H x W formatı)
+    transforms.Normalize(mean=[0.485,0.456,0.406],
+                         std=[0.229,0.224,0.225]) 
 ])
 
 mtcnn = MTCNN(keep_all=True, device=device)
-predictionQueue = deque(maxlen=5)
+predictionQueue = deque(maxlen=15)
 
 while True:
     isTrue, frame = capture.read()

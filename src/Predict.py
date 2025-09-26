@@ -1,17 +1,13 @@
 #SCRIPTS
-from Model import device, MaskModel
-from dataset import testData,trainData
+from PretrainedModel import getMaskModel,device
+from Dataset import testDataset,trainDataset, allDatas
 
 #LIBRARIES
 import torch
 import random
 import matplotlib.pyplot as plt
 
-newModel = MaskModel(inputShape=3,
-                       hiddenUnit=64,
-                       outputShape=len(testData.classes))
-
-newModel.load_state_dict(torch.load("src\myMaskModel.pth"))
+newModel = getMaskModel(numClasses=3,device=device)
 
 def makePredictions(model:torch.nn.Module,
                     data:list,
@@ -39,7 +35,7 @@ random.seed(41)
 testSamples = []
 testLabels = []
 
-for sample, label in random.sample(list(testData), k=9):
+for sample, label in random.sample(list(testDataset), k=9):
   testSamples.append(sample)
   testLabels.append(label)
 
@@ -60,12 +56,12 @@ for i, sample in enumerate(testSamples):
     plt.subplot(nrows, ncols, i+1)
 
     # Görüntüyü göster
-    plt.imshow(sample.squeeze(), cmap="gray")
+    plt.imshow(sample.permute(1,2,0))
     plt.axis('off')  # Eksenleri gizle
 
     # Tahmin ve gerçek sınıf isimleri
-    predLabel = testData.classes[predictionClasses[i]]  # modelin tahmini
-    trueLabel = testData.classes[testLabels[i]]         # gerçek sınıf
+    predLabel = allDatas.classes[predictionClasses[i]]  # modelin tahmini
+    trueLabel = allDatas.classes[testLabels[i]]         # gerçek sınıf
 
     # Renk belirle
     color = "green" if predLabel == trueLabel else "red"
@@ -76,5 +72,5 @@ for i, sample in enumerate(testSamples):
 plt.tight_layout()
 plt.show()
 
-for idx, ch in enumerate(trainData.classes):
+for idx, ch in enumerate(trainDataset.classes):
     print(idx, ch)

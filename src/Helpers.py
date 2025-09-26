@@ -1,7 +1,7 @@
 #LIBRARIES
 import torch
 
-from Model import device
+from PretrainedModel import device
 
 def accuracy(yTrue,yPred):
     correct = torch.eq(yTrue,yPred).sum().item()
