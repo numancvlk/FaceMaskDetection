@@ -21,6 +21,9 @@ GEREKLİ KÜTÜPHANELERİ KURUN
 pip install torch torchvision matplotlib opencv-python tqdm mtcnn facenet-pytorch
 ```
 
+## 📂 Kullanılan Dataset
+https://www.kaggle.com/datasets/ashishjangra27/face-mask-12k-images-dataset
+
 ## 🚀 Çalıştırma
 1. Önce veriler için **Dataset.py** dosyasını çalıştırın.
 2. Modeli oluşturmak için **Model.py** dosyasını çalıştırın.
@@ -52,6 +55,9 @@ INSTALL REQUIRED LIBRARIES
 ```bash
 pip install torch torchvision matplotlib opencv-python tqdm mtcnn facenet-pytorch
 ```
+
+## 📂 Used Dataset
+https://www.kaggle.com/datasets/ashishjangra27/face-mask-12k-images-dataset
 
 ## 🚀 Run
 
