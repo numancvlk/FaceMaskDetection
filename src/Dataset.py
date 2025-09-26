@@ -36,3 +36,4 @@ image, label = trainDataset[1]
 plt.title(allDatas.classes[label])
 plt.imshow(image.permute(1,2,0))
 plt.show()
+print(image.shape)
