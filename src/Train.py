@@ -17,9 +17,13 @@ LEARNING_RATE = 0.0001
 
 myMaskModel = getMaskModel(numClasses=3,device=device)
 
+#MobileNetV2’nin features (feature extractor) kısmındaki tüm katmanlarını “freeze” ediyoruz.
+# Yani bu katmanların ağırlıkları eğitim sırasında güncellenmeyecek.
 for param in myMaskModel.features.parameters():
     param.requires_grad = False
 
+# MobileNetV2’nin son 2 feature bloğunu açıyoruz, yani bu bloklar fine-tuning yapılacak.
+# Böylece model, kendi veri setimize göre son feature’ları biraz uyarlayabiliyor.
 for block in myMaskModel.features[-2:]:
     for param in block.parameters():
         param.requires_grad = True

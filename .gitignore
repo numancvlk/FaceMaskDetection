@@ -1,6 +1,6 @@
 archive/
 *.pth
 venv/
-dataset/
+datasets/
 sortedDataset/
 __pycache__/

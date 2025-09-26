@@ -1,13 +1,13 @@
 #SCRIPTS
 from PretrainedModel import getMaskModel,device
-from Dataset import testDataset,trainDataset, allDatas
+from Dataset import testDataset,trainDataset
 
 #LIBRARIES
 import torch
 import random
 import matplotlib.pyplot as plt
 
-newModel = getMaskModel(numClasses=3,device=device)
+newModel = getMaskModel(numClasses=2,device=device)
 
 def makePredictions(model:torch.nn.Module,
                     data:list,
@@ -60,8 +60,8 @@ for i, sample in enumerate(testSamples):
     plt.axis('off')  # Eksenleri gizle
 
     # Tahmin ve gerçek sınıf isimleri
-    predLabel = allDatas.classes[predictionClasses[i]]  # modelin tahmini
-    trueLabel = allDatas.classes[testLabels[i]]         # gerçek sınıf
+    predLabel = testDataset.classes[predictionClasses[i]]  # modelin tahmini
+    trueLabel = testDataset.classes[testLabels[i]]         # gerçek sınıf
 
     # Renk belirle
     color = "green" if predLabel == trueLabel else "red"

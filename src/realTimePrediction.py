@@ -1,3 +1,6 @@
+#SICRIPTS
+from Dataset import trainDataset
+
 #LIBRARIES
 import torch
 import cv2 as cv
@@ -7,13 +10,14 @@ from PretrainedModel import getMaskModel,device
 
 from collections import deque
 
-from SplitData import classes
-
 from facenet_pytorch import MTCNN #YÜZÜ ALGILAMAK İÇİN
 
 
 model = getMaskModel(numClasses=3,device=device)
+model.load_state_dict(torch.load("src\myMaskModel.pth", map_location=device))
 model.eval()
+
+classes = trainDataset.classes
 
 capture = cv.VideoCapture(0)
 
@@ -26,7 +30,7 @@ transform = transforms.Compose([
 ])
 
 mtcnn = MTCNN(keep_all=True, device=device)
-predictionQueue = deque(maxlen=15)
+predictionQueue = deque(maxlen=5)
 
 while True:
     isTrue, frame = capture.read()

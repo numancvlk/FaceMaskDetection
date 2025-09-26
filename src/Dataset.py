@@ -16,14 +16,9 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485,0.456,0.406], std=[0.229,0.224,0.225])
 ])
 
-allDatas = datasets.ImageFolder("sortedDataset",transform=transform) #TÜM DATALARI ALMAK
+trainDataset = datasets.ImageFolder("datasets\Face Mask Dataset\Train", transform=transform)
+testDataset = datasets.ImageFolder("datasets\Face Mask Dataset\Test", transform=transform)
 
-
-trainSize = int(0.8 * len(allDatas)) #%80 train verisi
-testSize = len(allDatas) - trainSize #%20 test verisi
-
-#Verileri verdiğimiz oranlarda trainDataset ve testDataset üzerinde dağıtıyor
-trainDataset, testDataset = random_split(allDatas, [trainSize,testSize])
 
 trainDataLoader = DataLoader(dataset=trainDataset,
                              batch_size=BATCH_SIZE,
@@ -36,7 +31,7 @@ testDataLoader = DataLoader(dataset=testDataset,
 
 image, label = trainDataset[1]
 
-plt.title(allDatas.classes[label])
+plt.title(trainDataset.classes[label])
 plt.imshow(image.permute(1,2,0))
 plt.show()
 print(image.shape)
