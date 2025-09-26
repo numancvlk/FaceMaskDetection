@@ -16,20 +16,19 @@ random.seed(32)
 LEARNING_RATE = 0.001
 
 myMaskModel = MaskModel(inputShape=3,
-                        hiddenUnit=64,
+                        hiddenUnit=128,
                         outputShape=3).to(device) #OUTPUT SHAPE CLASS SAYISI!!!
 
 lossFn = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(params=myMaskModel.parameters(),
-                            lr=LEARNING_RATE,
-                            momentum=0.9)
+optimizer = torch.optim.Adam(params=myMaskModel.parameters(),
+                            lr=LEARNING_RATE)
 
-epochs = 20
+epochs = 10
 
 startTrainTimer = default_timer()
 
 for epoch in tqdm(range(epochs)):
-    print(f"EPOCH = {epoch}\n----------")
+    print(f"EPOCH = {epoch}\n-----")
 
     trainStep(model=myMaskModel,
               dataLoader=trainDataLoader,

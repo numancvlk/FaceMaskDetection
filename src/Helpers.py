@@ -39,7 +39,7 @@ def trainStep(model: torch.nn.Module,
 
         optimizer.step()
 
-        if batch % 400 == 0:
+        if batch % 150 == 0:
             print(f"Looked at {batch * len(xTrain)} / {len(dataLoader.dataset)} samples")
     
     trainLoss /= len(dataLoader)

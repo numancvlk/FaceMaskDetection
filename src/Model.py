@@ -15,12 +15,14 @@ class MaskModel(nn.Module):
                       kernel_size=3,
                       stride=1,
                       padding=1),
+            nn.BatchNorm2d(hiddenUnit),
             nn.ReLU(),
             nn.Conv2d(in_channels=hiddenUnit,
                       out_channels=hiddenUnit,
                       kernel_size=3,
                       stride=1,
                       padding=1),
+            nn.BatchNorm2d(hiddenUnit),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)
         )
@@ -31,12 +33,14 @@ class MaskModel(nn.Module):
                       kernel_size=3,
                       stride=1,
                       padding=1),
+            nn.BatchNorm2d(hiddenUnit),
             nn.ReLU(),
             nn.Conv2d(in_channels=hiddenUnit,
                       out_channels=hiddenUnit,
                       kernel_size=3,
                       stride=1,
                       padding=1),
+            nn.BatchNorm2d(hiddenUnit),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)
         )
@@ -47,12 +51,14 @@ class MaskModel(nn.Module):
                       kernel_size=3,
                       stride=1,
                       padding=1),
+            nn.BatchNorm2d(hiddenUnit),
             nn.ReLU(),
             nn.Conv2d(in_channels=hiddenUnit,
                       out_channels=hiddenUnit,
                       kernel_size=3,
                       stride=1,
                       padding=1),
+            nn.BatchNorm2d(hiddenUnit),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2)
         )
